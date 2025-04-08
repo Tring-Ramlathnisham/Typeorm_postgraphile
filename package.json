@@ -1,0 +1,34 @@
+{
+  "name": "typeorm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx ts-node src/index.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migrate:create": "npm run typeorm -- migration:create  -d ./src/data-source.ts",
+    "migration:generate": "npm run typeorm -- migration:generate -d ./src/data-source.ts",
+    "migration:run": "npm run typeorm -- migration:run -d ./src/data-source.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d ./src/data-source.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": " npm run migration:generate src/migrations/ && npm run migration:run && nodemon --ext ts --exec  && npx ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@graphile/pg-pubsub": "^4.13.0",
+    "@graphile/subscriptions-lds": "^4.13.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.14",
+    "cli": "^1.0.1",
+    "express": "^4.21.2",
+    "graphql-subscriptions": "^3.0.0",
+    "pg": "^8.14.1",
+    "postgraphile": "^4.14.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typeorm": "^0.3.21",
+    "typescript": "^5.8.2"
+  }
+}

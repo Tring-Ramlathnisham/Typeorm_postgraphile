@@ -1,0 +1,5 @@
+/node_modules
+/.env
+/Random.sql
+/sql.sql
+something.txt
