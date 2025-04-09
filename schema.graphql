@@ -631,7 +631,7 @@ type Mutation {
     """
     input: DisplayUsersInput!
   ): DisplayUsersPayload
-  manageCohost(userId: UUID!, sessionId: UUID!, cohostId: UUID!, action: String!): ManageCohost!
+  manageCohost(userId: UUID!, sessionId: UUID!, cohostId: UUID!, action: String!): Cohost!
 }
 
 """The output of our create `Job` mutation."""
@@ -1342,13 +1342,21 @@ type Subscription {
     """The globally unique `ID` to be used in selecting a single `User`."""
     nodeId: ID!
   ): User
-  cohostManaged: ManageCohost!
+
+  """Subscribes to cohost add/remove events."""
+  cohostManaged: DataSubscription
 }
 
-type ManageCohost {
+type Cohost {
   message: String!
   userId: UUID!
   sessionId: UUID!
   cohostId: UUID!
   action: String!
+}
+
+type DataSubscription {
+  operation: String
+  old: User
+  new: User
 }

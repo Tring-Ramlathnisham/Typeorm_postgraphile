@@ -2,15 +2,18 @@ import "reflect-metadata"
 import express from "express";
 import { AppDataSource } from "./data-source";
 import dotenv from "dotenv";
-import postgraphile from "postgraphile";
+import {postgraphile,makePluginHook} from "postgraphile";
 import cohostPlugin from "./plugins/cohostPlugin";
 import SubscriptionsLdsPlugin from "@graphile/subscriptions-lds";
 import cohostManagementPlugin from "./plugins/cohostManagementPlugin";
+import PgPubsub from "@graphile/pg-pubsub"
 
 
 dotenv.config();
 
 const app=express();
+
+const pluginHook=makePluginHook([PgPubsub]);
 
 
 const DATABASE_URL=`postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
@@ -23,6 +26,7 @@ const main=async()=>{
 
             app.use(
                 postgraphile(DATABASE_URL,"public",{
+                    pluginHook,
                     watchPg:true,
                     graphiql:true,
                     enhanceGraphiql:true,
